@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>{{ book.title }} 人在北理-图书</title>
+{% end %}
+
+{% block navbar %}
+<li><a href="/">首页</a></li>
+<li class="active"><a href="/book">图书</a></li>
+<li><a href="/hole">树洞</a></li>
+<li><a href="/about">关于</a></li>
+{% end %}
+
+{% block content%}
+<div class="container">
+<br>
+    <div class="row-fluid">
+        <div class="span3">
+            <img src="{{ book.lpic }}" alt="">
+        </div>
+        <div class="span5">
+            <h4>{{ book.title }}</h4>
+            <p>作者：{{ book.author }}</p>
+            <p>出版社：{{ book.publisher }}</p>
+            <p>出版日期：{{ book.pubdate }}</p>
+            <p>定价：{{ book.price }}</p>
+            <p>ISBN：{{ book.isbn13 }}</p>
+            <p>豆瓣评分：{{ book.rating }} <a target="_blank" href="{{ book.alt }}">豆瓣链接</a></p>
+            {% if me %}
+            <p>
+            {% if not buy %}
+                <a class="btn" href="./buy/{{ book.id }}">我想买</a> 
+            {% else %}
+                <a class="btn btn-danger" href="./notbuy/{{ book.id }}">不买了</a> 
+            {% end %}
+            {% if not sell %}
+            <!-- <a class="btn" href="./sell/{{ book.id }}">我要卖</a> -->
+                <a class="btn" type="button" data-toggle="modal" data-target="#myModal">我要卖</a>
+            {% else %}
+                <a class="btn btn-danger" href="./notsell/{{ book.id }}">不卖了</a> 
+            {% end %}
+            </p>
+            
+            <p>
+                {% if not collected %}
+                <a class="btn" href="./collect/{{ book.id }}">收藏</a>
+                {% else %}
+                <a class="btn btn-danger" href="./notcollect/{{ book.id }}">取消收藏</a>
+                {% end %}
+            </p>
+            {% end %}
+            
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">我要卖</h3>
+  </div>
+  <div class="modal-body">
+      <form method="post" action="/book/sell">
+          <input type="hidden", name="book_id" value="{{ book.id }}" >
+            <div class="control-group">
+                <div class="controls">
+                    <label>价格</label>
+                  <input class="input" type="text" name="price" placeholder="[0,99]，整数">
+                </div>
+            </div>
+        <label>描述</label>
+          <textarea name="des" rows="2" placeholder="新旧程度等，10字以内"></textarea>
+  
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+          <button type="submit" class="btn btn-primary">提交</button>
+        </div>
+  </form>
+  </div>
+</div>
+
+
+            
+            <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_weixin"></a>
+	<a class="jiathis_button_twitter"></a>
+	<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1372255045700992" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+            
+            
+        </div>
+    </div>
+    
+    <br>
+    <ul id="mytab" class="nav nav-tabs">
+        <li class="active"><a href="#buy" data-toggle="tab">Buyers</a></li>
+        <li><a href="#sell" data-toggle="tab">Sellers</a></li>
+    </ul>
+    <div class="tab-content">
+        
+    {% if not me %}
+        <div class="tab-pane active" id="buy">
+            <p>目前有{{ len(buyers) }}位用户想购买此书。想要查看更多信息，请先<a href="/signin">登录</a>或<a href="/register">注册</a></p>
+        </div>
+        <div class="tab-pane" id="sell">
+            <p>目前有{{ len(sellers) }}位用户想出售此书。想要查看更多信息，请先<a href="/signin">登录</a>或<a href="/register">注册</a></p>
+        </div>
+    {% else %}
+        <div class="tab-pane active" id="buy">
+        {% if len(buyers) == 0 %}
+            <p>目前还没有用户想购买此书</p>
+        {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>用户</th>
+                    <th>校区</th>
+                    <th>时间</th>
+                    <th>联系</th>
+                </tr>
+                {% for buyer in buyers %}
+                
+                <tr>
+                    <td>{{ buyers.index(buyer)}}</td>
+                    <td><a href="/user/{{ buyer.userid }}" target="_blank">{{ buyer.name }}</a></td>
+                    <td>{{ buyer.campus }}</td>
+                    <td>{{ buyer.time }}</td>
+                    <!-- <td><a href="#" class="btn" data-toggle="popover" data-placement="top" data-title="{{ buyer.name }}的联系方式" data-content="手机：{{ buyer.phone }}   QQ：{{buyer.qq }}">查看</a></td> -->
+                    <td><a class="btn" type="button" data-toggle="modal" data-target="#{{ buyer.userid }}">私信TA</a></td>
+                </tr>
+
+<div id="{{ buyer.userid }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">To:{{ buyer.name }}</h3>
+  </div>
+  <form method="post" action="/inbox">
+  <div class="modal-body">
+      <input type="hidden" name="to_user" value="{{ buyer.userid }}">
+      <input type="hidden" name="redirect_url" value="/book/{{ book.id }}">
+      <textarea rows="5" class="input-xlarge" name="content" placeholder="256字以内"></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <button type="submit" class="btn btn-primary">发送</button>
+  </div>
+  </form>
+</div>
+
+                {% end %}
+            </table>
+        {% end %}
+        </div>
+        
+        <div class="tab-pane" id="sell">
+        {% if len(sellers) == 0 %}
+            <p>目前还没有用户想出售此书</p>
+        {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>用户</th>
+                    <th>校区</th>
+                    <th>价格</th>
+                    <th>描述</th>
+                    <th>联系</th>
+                </tr>
+                {% for seller in sellers %}
+                <tr>
+                    <td>{{ sellers.index(seller)}}</td>
+                    <td><a href="/user/{{ seller.userid }}" target="_blank">{{ seller.name }}</a></td>
+                    <td>{{ seller.campus }}</td>
+                    <td>{{ seller.price }}</td>
+                    <td>{{ seller.des }}</td>
+                    <!-- <td><a href="#" class="btn" data-toggle="popover" data-placement="top" data-title="{{ seller.name }}的联系方式" data-content="手机：{{ seller.phone }}   QQ：{{ seller.qq }}">查看</a></td> -->
+                    <td><a class="btn" type="button" data-toggle="modal" data-target="#{{ seller.userid }}">私信TA</a></td>
+                </tr>
+
+<div id="{{ seller.userid }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">To:{{ seller.name }}</h3>
+  </div>
+  <form method="post" action="/inbox">
+  <div class="modal-body">
+      <input type="hidden" name="to_user" value="{{ seller.userid }}">
+      <input type="hidden" name="redirect_url" value="/book/{{ book.id }}">
+      <textarea rows="5" class="input-xlarge" name="content" placeholder="256字以内"></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <button type="submit" class="btn btn-primary">发送</button>
+  </div>
+  </form>
+</div>
+
+
+                {% end %}
+            </table>
+        {% end %}
+        </div>
+    </div>
+    {% end %}
+
+</div>
+{% end %}<!--> end block <!-->
+
+{% block script %}
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.js"></script>  
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/bootstrap/2.3.2/js/bootstrap.js"></script>
+
+<script type='text/javascript'>
+function initial(){
+    $("a[data-toggle=popover]").popover();
+};
+$(document).ready(initial);
+</script>
+{% end %}
+

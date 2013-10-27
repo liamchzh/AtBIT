@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>{{ myself.name }} - 人在北理</title>
+{% end %}
+
+
+{% block navbar %}
+<li><a href="../">首页</a></li>
+<li><a href="../book">图书</a></li>
+<li><a href="../hole">树洞</a></li>
+<li><a href="../about">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="span9">
+            <h3>我的个人主页({{ myself.userid }})</h3>
+        </div>
+        <div class="span2">
+        
+        </div>
+    </div>
+    <ul id="mytab" class="nav nav-tabs">
+        <li class="active"><a href="#buy" data-toggle="tab">我想买的书</a></li>
+        <li><a href="#sell" data-toggle="tab">我想卖的书</a></li>
+        <li><a href="#collect" data-toggle="tab">我收藏的书</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="buy">
+            {% if len(buybooks) == 0%}
+            <p>我还没有想买的书</p>
+            {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>添加时间</th>
+                    <th>豆瓣链接</th>
+                </tr>
+                {% for book in buybooks %}
+                <tr>
+                    <td>{{ buybooks.index(book) }}</td>
+                    <td><a href="/book/{{ book.id }}" target="_blank">{{ book.title }}</a></td>
+                    <td>{{ book.author}}</td>
+                    <td>{{ book.time }}</td>
+                    <td><a href="{{ book.alt }}" target="_blank">{{ book.alt }}</a></td>
+                </tr>
+                {% end %}
+            </table>
+            {% end %}
+        </div>
+        <div class="tab-pane" id="sell">
+            {% if len(sellbooks) == 0%}
+            <p>我还没有想卖的书</p>
+            {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>添加时间</th>
+                    <th>豆瓣链接</th>
+                </tr>
+                {% for book in sellbooks %}
+                <tr>
+                    <td>{{ sellbooks.index(book) }}</td>
+                    <td><a href="/book/{{ book.id }}" target="_blank">{{ book.title }}</a></td>
+                    <td>{{ book.author}}</td>
+                    <td>{{ book.time }}</td>
+                    <td><a href="{{ book.alt }}" target="_blank">{{ book.alt }}</a></td>
+                </tr>
+                {% end %}
+            </table>
+            {% end %}
+        </div>
+        <div class="tab-pane" id="collect">
+            {% if len(collectbooks) == 0%}
+            <p>我还没有收藏的书</p>
+            {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>添加时间</th>
+                    <th>豆瓣链接</th>
+                </tr>
+                {% for book in collectbooks %}
+                <tr>
+                    <td>{{ collectbooks.index(book) }}</td>
+                    <td><a href="/book/{{ book.id }}" target="_blank">{{ book.title }}</a></td>
+                    <td>{{ book.author}}</td>
+                    <td>{{ book.time }}</td>
+                    <td><a href="{{ book.alt }}" target="_blank">{{ book.alt }}</a></td>
+                </tr>
+                {% end %}
+            </table>
+            {% end %}
+        </div>
+        
+    </div>
+</div>
+{% end %}
+
+{% block script %}
+
+<script type='text/javascript'>
+function initial(){
+    $("a[data-toggle=popover]").popover();
+};
+$(document).ready(initial);
+</script>
+{% end %}

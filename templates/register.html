@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>人在北理-注册</title>
+{% end %}
+
+{% block navbar %}
+<li><a href="/">首页</a></li>
+<li><a href="/book">图书</a></li>
+<li><a href="/hole">树洞</a></li>
+<li><a href="/about">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+<div class="offset1">
+<h3 class="offset2">注册帐号</h3>
+            <form class="form-horizontal" method="post" action="">
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">邮箱*</label>
+                <div class="controls">
+                <input type="text" name="email" id="inputEmail" value = "{{ info.get('email', '') }}" placeholder="Email">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPassword">密码*</label>
+                <div class="controls">
+                <input type="password" name="pswd" id="inputPassword" value = "{{ info.get('pswd', '') }}" placeholder="Password">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputName">姓名*</label>
+                <div class="controls">
+                <input type="text" name="name" id="inputPassword" value = "{{ info.get('name', '') }}" placeholder="中英文">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputQQ">QQ*</label>
+                <div class="controls">
+                <input type="text" name="qq" id="inputPassword" value = "{{ info.get('qq', '') }}" placeholder="QQ号码">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputPhone">电话*</label>
+                <div class="controls">
+                <input type="text" name="phone" id="inputPassword" value = "{{ info.get('phone', '') }}" placeholder="手机号码">
+                    <a href="#" data-toggle="tooltip" title="QQ和电话号码至少填写一个">注</a>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputCampus">校区*</label>
+                <div class="controls">
+                {% if info.get('campus', '') != 'BIT' %}
+                <input type="radio" name="campus" checked="true" value="LIT" /> 良乡
+                <input type="radio" name="campus" value="BIT" /> 本部
+                {% else %}
+                <input type="radio" name="campus" value="LIT" /> 良乡
+                <input type="radio" name="campus" checked="true" value="BIT" /> 本部
+                {% end %}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="inputNotes">备注</label>
+                <div class="controls">
+      			<textarea name="notes" rows="3" class="input-xlarge" placeholder="其他联系方式/兴趣爱好/专业……">{{ info.get('notes', '') }}</textarea>
+      			</div>
+            </div>
+                <div class="offset2">
+            <p>注：提交后资料无法修改</p>
+                </div>
+			<div class="control-group">
+                <div class="controls">
+                <button type="submit" class="btn">提交</button>
+                </div>
+            </div>
+            <div class="offset1">
+			{% if messages %}
+      			{% for msg in messages %}
+      				<div class="alert alert-info">
+          			{{ msg }}
+                {% end %}
+            {% end %}
+            </div>
+</div>
+</div>
+{% end %}
+
+{% block script %}
+{% end %}
+

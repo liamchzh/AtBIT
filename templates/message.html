@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>私信 - 人在北理</title>
+{% end %}
+
+
+{% block navbar %}
+<li><a href="../">首页</a></li>
+<li><a href="../book">图书</a></li>
+<li><a href="../hole">树洞</a></li>
+<li><a href="../about">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+    <h3>与<a href="/user/{{ other["id"] }}">{{ other["name"] }}</a>的对话 <a class="btn" type="button" data-toggle="modal" data-target="#sendtext">回复</a> </h3>
+    <div class="span11">
+        {% for m in messages %}
+        <div class="span11">
+        <ul class="nav nav-list">
+          <li class="divider"></li>
+      </ul> 
+      </div>
+        <div class="span2">
+            {% if m["tome"] %}
+                {{ other["name"] }}说：
+            {% else %}
+                我说：
+            {% end %}
+        </div>
+        <div class="span5">
+            <div>
+                <p>{{ m["content"] }}</p>
+            </div>
+            <div>
+                <blockquote><small>{{ m["time"] }} </small></blockquote>
+            </div>
+        </div>
+        {% end %}
+    </div>
+</div>
+<div id="sendtext" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">To:{{ other['name'] }}</h3>
+  </div>
+  <form method="post" action="/inbox">
+  <div class="modal-body">
+      <input type="hidden" name="to_user" value="{{ other['id'] }}">
+      <input type="hidden" name="redirect_url" value="/message/{{ other['id'] }}">
+      <textarea rows="5" class="input-xlarge" name="content" placeholder="256字以内"></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <button type="submit" class="btn btn-primary">发送</button>
+  </div>
+  </form>
+</div>
+
+{% end %}
+

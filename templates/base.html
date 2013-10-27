@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        {% block title %}
+        <title>人在北理</title>
+        {% end %}
+        <link rel="stylesheet" href="http://lib.sinaapp.com/js/bootstrap/2.3.2/css/bootstrap.min.css" type="text/css"/>
+        <style type="text/css"></style>
+    </head>
+    
+    <body>
+        
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+ 
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+        <div class="span10 offset2">
+        <a class="brand" href="#">人在北理</a>
+        <div class="nav-collapse">
+                        <ul class="nav">
+                            {% block navbar %} {% end %}
+                            {% block search %}
+                            <li>
+                                <form class="navbar-search pull-left" method='post' action="/search">
+                                    <input type="text" name="search" class="search-query" placeholder="书名/作者">
+                                </form>
+                            </li>
+                            {% end %}
+
+                            <li>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </li>
+
+                            {% if me %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ me.name }}
+                                    {% if me.unread > 0 %}<span class="badge badge-important">{{ me.unread }}</span>
+                                    {% end %}
+                                    <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/me">主页</a></li>
+                                    <li><a href="/inbox">私信{% if me.unread > 0 %}<span class="badge badge-important">{{ me.unread }}</span>{% end %}</a></li>
+                                    <li><a href="/signout">退出</a></li>
+                                </ul>
+                            </li>
+                                
+                            {% else %}
+                            <li><a href="/signin">登录</a></li>
+                            <li><a href="/register">注册</a></li>
+                            {% end %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        {% block content %}{% end %}
+        
+        {% block footer %}
+      <div id="footer" class="container">
+          <hr>
+      <div class="offset4">
+          <p>©2013 Liam All Rights Reserved <a target="_blank" href="http://liamchzh.github.io/about">关于我</a> <a target="_blank" href="https://me.alipay.com/liamchzh" data-toggle="tooltip" title="你的支持是我最好的动力">赞助我</a></p>
+      </div>
+    </div>
+        {% end %}
+        
+{% block script %}
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.js"></script>  
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/bootstrap/2.3.2/js/bootstrap.js"></script>
+{% end %}
+    </body> 
+</html>
+

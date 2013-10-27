@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>{{ user.name }} - 人在北理</title>
+{% end %}
+
+
+{% block navbar %}
+<li><a href="../">首页</a></li>
+<li><a href="../book">图书</a></li>
+<li><a href="../hole">树洞</a></li>
+<li><a href="../about">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="span9">
+        <h3>{{ user.name }}的个人主页 <a class="btn" type="button" data-toggle="modal" data-target="#sendtext">私信TA</a></h3>
+        </div>
+        <div class="span2">
+        
+        </div>
+    </div>
+    <ul id="mytab" class="nav nav-tabs">
+        <li class="active"><a href="#buy" data-toggle="tab">TA想买的书</a></li>
+        <li><a href="#sell" data-toggle="tab">TA想卖的书</a></li>
+        <li><a href="#collect" data-toggle="tab">TA收藏的书</a></li>
+        {% if me %}
+        <li><a href="#" class="offset6" data-toggle="popover" data-placement="top" data-title="{{ user.name }}的联系方式 (校区：{{ user.campus}})" data-content="手机：{{ user.phone }}   QQ：{{ user.qq }}  ">联系TA</a></li>
+        {% end %}
+    </ul>
+    <div class="tab-content">
+        {% if not me %}
+        <div class="tab-pane active" id="buy">
+            <p>想要查看该用户更多信息，请先<a href="/signin">登录</a>或<a href="/register">注册</a></p>       
+        </div>
+        <div class="tab-pane" id="sell">
+            <p>想要查看该用户更多信息，请先<a href="/signin">登录</a>或<a href="/register">注册</a></p>
+        </div>
+        <div class="tab-pane" id="collect">
+            <p>想要查看该用户更多信息，请先<a href="/signin">登录</a>或<a href="/register">注册</a></p>
+        </div>
+        {% else %}
+        <div class="tab-pane active" id="buy">
+            {% if len(buybooks) == 0%}
+            <p>TA还没有想买的书</p>
+            {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>添加时间</th>
+                    <th>豆瓣链接</th>
+                </tr>
+                {% for book in buybooks %}
+                <tr>
+                    <td>{{ buybooks.index(book) }}</td>
+                    <td><a href="/book/{{ book.id }}" target="_blank">{{ book.title }}</a></td>
+                    <td>{{ book.author}}</td>
+                    <td>{{ book.time }}</td>
+                    <td><a href="{{ book.alt }}" target="_blank">{{ book.alt }}</a></td>
+                </tr>
+                {% end %}
+            </table>
+            {% end %}
+        </div>
+        <div class="tab-pane" id="sell">
+            {% if len(sellbooks) == 0%}
+            <p>TA还没有想卖的书</p>
+            {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>添加时间</th>
+                    <th>豆瓣链接</th>
+                </tr>
+                {% for book in sellbooks %}
+                <tr>
+                    <td>{{ sellbooks.index(book) }}</td>
+                    <td><a href="/book/{{ book.id }}" target="_blank">{{ book.title }}</a></td>
+                    <td>{{ book.author}}</td>
+                    <td>{{ book.time }}</td>
+                    <td><a href="{{ book.alt }}" target="_blank">{{ book.alt }}</a></td>
+                </tr>
+                {% end %}
+            </table>
+            {% end %}
+        </div>
+        <div class="tab-pane" id="collect">
+            {% if len(collectbooks) == 0%}
+            <p>TA还没有收藏的书</p>
+            {% else %}
+            <table class="table table-striped">
+                <tr>
+                    <th>#</th>
+                    <th>书名</th>
+                    <th>作者</th>
+                    <th>添加时间</th>
+                    <th>豆瓣链接</th>
+                </tr>
+                {% for book in collectbooks %}
+                <tr>
+                    <td>{{ collectbooks.index(book) }}</td>
+                    <td><a href="/book/{{ book.id }}" target="_blank">{{ book.title }}</a></td>
+                    <td>{{ book.author}}</td>
+                    <td>{{ book.time }}</td>
+                    <td><a href="{{ book.alt }}" target="_blank">{{ book.alt }}</a></td>
+                </tr>
+                {% end %}
+            </table>
+            {% end %}
+        </div>
+        {% end %}
+    </div>
+</div>
+
+<div id="sendtext" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">To:{{ user.name }}</h3>
+  </div>
+  <form method="post" action="/inbox">
+  <div class="modal-body">
+      <input type="hidden" name="to_user" value="{{ user.userid }}">
+      <input type="hidden" name="redirect_url" value="/user/{{ user.userid }}">
+      <textarea rows="5" class="input-xlarge" name="content" placeholder="256字以内"></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <button type="submit" class="btn btn-primary">发送</button>
+  </div>
+  </form>
+</div>
+
+{% end %}
+
+{% block script %}
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.js"></script>  
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/bootstrap/2.3.2/js/bootstrap.js"></script>
+
+<script type='text/javascript'>
+function initial(){
+    $("a[data-toggle=popover]").popover();
+};
+$(document).ready(initial);
+</script>
+{% end %}
+

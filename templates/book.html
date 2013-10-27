@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>人在北理-图书</title>
+{% end %}
+
+{% block navbar %}
+<li><a href="/">首页</a></li>
+<li class="active"><a href="../book">图书</a></li>
+<li><a href="/hole">树洞</a></li>
+<li><a href="/about">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+<ul id="mytab" class="nav nav-tabs">
+    <li class="active"><a href="#" data-toggle="tab">最新</a></li>
+    <li class="offset9"><a href="/book/add">添加图书</a></li>
+</ul>
+<ul class="thumbnails">
+    {% for book in book1 %}
+        <li class="span3">
+            <a target="_blank" href="book/{{ book.id }}">
+          <div class="thumbnail">
+             <div class="row-fluid">
+                 <div class="span6">
+                     <img src="{{ book.mpic }}" alt="">
+                 </div>
+              <div class="span6">
+                  <h5>{{ book.title }}</h5>
+                  <p>{{ book.author }}</p>
+                 </div>
+              </div>
+              <br>
+              </div>
+            </a>
+        </li>
+     {% end %}
+</ul>
+<ul class="thumbnails">
+    {% for book in book2 %}
+        <li class="span3">
+            <a target="_blank" href="book/{{ book.id }}">
+          <div class="thumbnail">
+             <div class="row-fluid">
+                 <div class="span6">
+                     <img src="{{ book.mpic }}" alt="">
+                 </div>
+              <div class="span6">
+                  <h5>{{ book.title }}</h5>
+                  <p>{{ book.author }}</p>
+                 </div>
+              </div>
+              <br>
+              </div>
+            </a>
+        </li>
+     {% end %}
+</ul>
+   
+</div>
+
+
+<div class="pagination pagination-centered">
+<ul>
+{% if pages>11 %}
+     <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+    {% for i in range(1,6) %}
+        {% if i==1 %}
+            <li class="active"><a href="#">{{i}}</a></li>
+        {% elif i==1 %}
+            <li><a href="/">{{i}}</a></li>
+        {% else %}
+            <li><a href="/book/page/{{i}}">{{i}}</a></li>
+        {% end %}
+    {% end %}
+    <li class="disabled"><a href="#">...</a></li>
+    {% for i in range(pages-4,pages+1) %}
+            <li><a href="/book/page/{{i}}">{{i}}</a></li>
+    {% end %}
+    <li class="next"><a href="/book/page/2">Next &rarr;</a></li>
+{% else %}
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+    {% for i in range(pages) %}
+        {% if i==0 %}
+            <li class="active"><a href="/book">{{i+1}}</a></li>
+        {% else %}
+            <li><a href="/book/page/{{i+1}}">{{i+1}}</a></li>
+        {% end %}
+    {% end %}
+    {% if pages==1 %}
+        <li class="next disabled"><a href="#">Next &rarr;</a></li>
+    {% else %}
+        <li class="next"><a href="/book/page/2">Next &rarr;</a></li>
+    {% end %}
+{% end %}
+</ul>
+</div>
+{% end %}
+

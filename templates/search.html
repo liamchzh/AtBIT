@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>人在北理-Search</title>
+{% end %}
+
+{% block navbar %}
+<li><a href="../">首页</a></li>
+<li class="active"><a href="../book">图书</a></li>
+<li><a href="../hole">树洞</a></li>
+<li><a href="../about">关于</a></li>
+{% end %}
+{% block search %}
+<li>
+    <form class="navbar-search pull-left" method='post' action="/search">
+        <input type="text" name="search" class="search-query" value="{{ content }}" placeholder="书名/作者">
+    </form>
+</li>
+{% end %}
+
+{% block content %}
+<div class="container">
+<ul id="mytab" class="nav nav-tabs">
+    <li class="active"><a href="#" data-toggle="tab">搜索结果</a></li>
+</ul>
+    
+<ul class="thumbnails">
+    {% for book in book1 %}
+        <li class="span3">
+            <a target="_blank" href="/book/{{ book.id }}">
+          <div class="thumbnail">
+             <div class="row-fluid">
+                 <div class="span6">
+                     <img src="{{ book.mpic }}" alt="">
+                 </div>
+              <div class="span6">
+                  <h5>{{ book.title }}</h5>
+                  <p>{{ book.author }}</p>
+                 </div>
+              </div>
+              <br>
+              </div>
+            </a>
+        </li>
+     {% end %}
+</ul>
+<ul class="thumbnails">
+    {% for book in book2 %}
+        <li class="span3">
+            <a target="_blank" href="/book/{{ book.id }}">
+          <div class="thumbnail">
+             <div class="row-fluid">
+                 <div class="span6">
+                     <img src="{{ book.mpic }}" alt="">
+                 </div>
+              <div class="span6">
+                  <h5>{{ book.title }}</h5>
+                  <p>{{ book.author }}</p>
+                 </div>
+              </div>
+              <br>
+              </div>
+            </a>
+        </li>
+     {% end %}
+</ul>
+<ul class="thumbnails">
+    {% for book in book3 %}
+        <li class="span3">
+            <a target="_blank" href="/book/{{ book.id }}">
+          <div class="thumbnail">
+             <div class="row-fluid">
+                 <div class="span6">
+                     <img src="{{ book.mpic }}" alt="">
+                 </div>
+              <div class="span6">
+                  <h5>{{ book.title }}</h5>
+                  <p>{{ book.author }}</p>
+                 </div>
+              </div>
+              <br>
+              </div>
+            </a>
+        </li>
+     {% end %}
+</ul>
+<ul class="thumbnails">
+    {% for book in book4 %}
+        <li class="span3">
+            <a target="_blank" href="/book/{{ book.id }}">
+          <div class="thumbnail">
+             <div class="row-fluid">
+                 <div class="span6">
+                     <img src="{{ book.mpic }}" alt="">
+                 </div>
+              <div class="span6">
+                  <h5>{{ book.title }}</h5>
+                  <p>{{ book.author }}</p>
+                 </div>
+              </div>
+              <br>
+              </div>
+            </a>
+        </li>
+     {% end %}
+</ul>
+没有找到想要的书？<a href="/book/add">添加图书</a>
+</div>
+{% end %}
+

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block navbar %}
+<li class="active"><a href="">首页</a></li>
+<li><a href="/book">图书</a></li>
+<li><a href="/hole">树洞</a></li>
+<li><a href="/about">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+<hr>
+<div class="">
+<div id="myCarousel" class="carousel slide">  
+    <ol class="carousel-indicators">  
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>  
+    <div class="carousel-inner">  
+        <div class="item">  
+           <img src="/static/pic/atbit.jpg" alt="">  
+           <div class="carousel-caption">  
+              <h4>人在北理</h4> 
+              <p>人在北理是一款结合微信、网站和人人主页的校园助手应用。</p>  
+           </div>  
+        </div>  
+        <div class="item">  
+                    <img src="/static/pic/weixin.jpg" alt="">  
+                    <div class="carousel-caption">  
+                      <h4>微信公众平台</h4>  
+                      <p>通过微信，你可以查询新闻、校车、天气预报和空气质量等。</p>  
+                    </div>  
+        </div>  
+        
+    </div>  
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>  
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>  
+  </div>  
+
+</div>
+    
+<div class="row">
+        <div class="span4">
+            <img class="img-polaroid" src="/static/pic/qrcode.jpg">
+          <h3>微信公众平台</h3>
+          <p>扫描二维码，或者搜「人在北理」，即可添加。发送需要查询的关键字，如「校车」，即可收到相应回复。</p>
+          <p><a class="btn" href="#">去看看 &raquo;</a></p>
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-polaroid" src="/static/pic/book.jpg">
+          <h3>图书交易</h3>
+          <p>每年都有不少被当作废纸卖掉，你又是否忍心？在这里，你可以找到你需要的图书或教材，让旧书得到再利用的机会。</p>
+          <p><a class="btn" href="/book">去看看 &raquo;</a></p>
+        </div><!-- /.span4 -->
+        <div class="span4">
+          <img class="img-polaroid" src="/static/pic/hole.jpg">
+          <h3>树洞</h3>
+          <p>有些话在心头，却说不出口？「人在北理」树洞，就是你最好的倾诉对象。有些话现在不说，就再也没机会。</p>
+          <p><a class="btn" href="/hole">去看看 &raquo;</a></p>
+    
+</div>
+{% end %}
+
+{% block script %}
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.js"></script>  
+    <script type="text/javascript" src="http://lib.sinaapp.com/js/bootstrap/2.3.2/js/bootstrap.js"></script>
+
+<script type="text/javascript">   
+$('#myCarousel').carousel('next');  
+</script>  
+{% end %}
+
+

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>私信 - 人在北理</title>
+{% end %}
+
+
+{% block navbar %}
+<li><a href="../">首页</a></li>
+<li><a href="../book">图书</a></li>
+<li><a href="../hole">树洞</a></li>
+<li><a href="../about">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+    <h3>我的私信</h3>
+    <div class="span11">
+    {% for m in messages %}
+    <div class="span11">
+    <ul class="nav nav-list">
+      <li class="divider"></li>
+    </ul> 
+    </div>
+    <div class="span2">
+        {% if m["tome"] %}
+        <a href="/user/{{m["id"]}}">{{ m["name"] }}</a>对我说：
+        {% else %}
+        我对<a href="/user/{{m["id"]}}">{{ m["name"] }}</a>说：
+        {% end %}
+    </div>
+    <div class="span5">
+        <div>
+            {% if m['read'] %}
+            <p>{{ m["content"] }}</p>
+            {% else %}
+            <strong><p>{{ m['content'] }}</p></strong>
+            {% end %}
+        </div>
+        <div>
+            <blockquote><small>{{ m["time"] }} <a href="/message/{{m["id"]}}">查看所有对话</a> <a type="button" data-toggle="modal" data-target="#{{m['id']}}" >回复</a></small></blockquote>
+        </div>
+    </div>
+    <div id="{{ m['id'] }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">To:{{ m['name'] }}</h3>
+  </div>
+  <form method="post" action="/inbox">
+  <div class="modal-body">
+      <input type="hidden" name="to_user" value="{{ m['id'] }}">
+      <input type="hidden" name="redirect_url" value="/inbox">
+      <textarea rows="5" class="input-xlarge" name="content" placeholder="256字以内"></textarea>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <button type="submit" class="btn btn-primary">发送</button>
+  </div>
+  </form>
+</div>
+
+    {% end %}
+</div>
+</div>
+{% end %}
+

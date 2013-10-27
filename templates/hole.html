@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>人在北理-树洞</title>
+{% end %}
+
+{% block navbar %}
+<li><a href="/">首页</a></li>
+<li><a href="/book">图书</a></li>
+<li class="active"><a href="">树洞</a></li>
+<li><a href="/about">关于</a></li>
+{% end %}
+{% block content %}
+<div class="container">
+    
+    
+<div class="offset2">
+    <h3>「人在北理」树洞 </h3>
+    <br>
+    {% if not me %}
+    <p>请先<a href="/signin">登录</a>或<a href="/register">注册</a></p>
+    {% else %}
+  <form action="" method="POST">
+      <div>
+      <textarea name="content" rows="5" class="input-xxlarge" placeholder="向树洞说出你想说的一切吧"></textarea>
+      </div>
+      {% if messages %}
+      {% for msg in messages %}
+      <div class="alert alert-{{ msg }}">
+          {{ msg }}
+      </div>
+      {% end %}
+      {% end %}
+      <div>
+      <input type="submit" class="btn btn-large btn-primary">
+      <input type="reset" text="清空" class="btn btn-large btn-danger">
+       </div>
+       <br>
+       <div>
+           <ul>
+               <li>整个过程都将由机器自动操作，发送后无法删除，表白请谨慎。</li>
+               <li>成功发送的内容都将在<a target="_blank" href="http://page.renren.com/601683615">「人在北理」公共主页</a>上显示。</li>
+               <li>提倡分享有用信息，谢绝吐槽。</li>
+               <li>请不要频繁、重复提交。有任何疑问请邮件联系。</li>
+           </ul>
+       </div>
+  </form>
+</div>
+{% end %}
+</div>
+
+{% end %}

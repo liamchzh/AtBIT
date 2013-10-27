@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block navbar %}
+<li><a href="/">首页</a></li>
+<li><a href="/book">图书</a></li>
+<li><a href="/hole">树洞</a></li>
+<li class="active"><a href="">关于</a></li>
+{% end %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="span3 bs-docs-sidebar">
+        <ul class="nav nav-list" data-spy="affix" data-offset-top="50">
+          <li><a href="#1"><i class="icon-chevron-right"></i> 人在北理</a></li>
+          <li><a href="#2"><i class="icon-chevron-right"></i> 微信公众平台</a></li>
+          <li><a href="#3"><i class="icon-chevron-right"></i> 图书</a></li>
+          <li><a href="#4"><i class="icon-chevron-right"></i> 赞助</a></li>
+          <li><a href="#5"><i class="icon-chevron-right"></i> 感谢</a></li>
+        </ul>
+      </div>
+      <div class="span9">
+          <section id="1">
+          <div class="page-header">
+            <h3>人在北理</h3>
+              <p>人在北理是一款结合微信、网站和人人主页的校园助手应用。这想法开始今年上半年，最初只有微信，通过调用各个平台的API来为用户提供一些基本的校园信息查询。然后做了网站，加入来树洞的功能。趁着暑假的时间，又加入了图书的功能，旨在提供一个平台，方便大家进行二手书交易。整个应用都是我一人利用课余时间独自开发，用户并不多。但是我会结合当前的时间，在微信公众平台推出一些具有高时效性的查询服务，请留意微信的推送。</p>
+          </div>
+              
+               
+          <section id="2">
+          <div class="page-header">
+            <h3>微信公众平台</h3>
+              <p>目前「人在北理」微信公众帐号的功能有：</p>
+              <ol>
+              <li>发送「新闻」或「体育」或「NBA」或「bbc world」或「bbc china」，查看相应新闻。</li>
+              <li>发送「校车」或「明天校车」可以查看今天或明天校车时刻表。</li>
+              <li>发送「摆渡车」可以查看良乡校区摆渡车时刻表。</li>
+              <li>发送「环一」或「环1」可以查看环1公交发车时刻。</li>
+              <li>发送「天气」或「空气」可以查看天气预报或当前空气质量。</li>
+              <li>发送英文单词或句子可以进行翻译。</li>
+              </ol>
+          </div>
+                   
+          <section id="3">
+          <div class="page-header">
+            <h3>图书</h3>
+              <p>目前中国的大学里，教材的利用率极低，很多教材只用了一学期就成了废纸，每到期末时，大量的教材被当作废纸卖掉，这种浪费的现象非常严重，我认为这不是废物利用，这些书被卖掉只是因为占着地方而又找不到需要它的人。于是有了这个图书交易平台，我希望不用的书都能找到需要它的新主人，让它能继续发挥它应有的价值。</p>
+          </div>
+               
+          <section id="4">
+          <div class="page-header">
+            <h3>赞助</h3>
+              <p>如果你认为「人在北理」对你有帮助，可以点【<a target="_blank" href="https://me.alipay.com/liamchzh">这里</a>】对我进行小额赞助。你的支持是我最大的动力，我会努力做好「人在北理」。作为一名追求「用户体验」的开发者，我承诺「人在北理」没有广告，所以我需要你的支持。</p>
+          </div>
+                           
+          <section id="5">
+          <div class="page-header">
+            <h3>感谢</h3>
+              <p>「人在北理」的开发用到了一些开源代码和免费API，在此一一感谢。</p>
+              <ul>
+                  <li><a target="_blank" href="http://twitter.github.io/bootstrap/">Bootstrap</a></li>
+                  <li><a target="_blank" href="https://github.com/facebook/tornado">Tornado</a></li>
+                  <li><a target="_blank" href="http://www.douban.com/">豆瓣</a></li>
+                  <li><a target="_blank" href="https://blog.blahgeek.com/ru-he-xie-ge-shu-dong.html">如何写一个树洞</a></li>
+                  <li><a target="_blank" href="https://github.com/chu888chu888/SAE-Python-Tornado-SAE-CodeShare">CodeShare</a></li>
+                  <li><a target="_blank" href="http://pm25.in/">PM25.in</a></li>
+              </ul>
+          </div>
+       </div>
+     </div>
+</div>
+{% end %}
+
