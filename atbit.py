@@ -203,12 +203,12 @@ class addBookHandler(BaseHandler):
                 self.db.execute("update Books set updatetime = %s where id = %s", datetime.datetime.now(), bookinfo["id"])
                 self.redirect("/book/%s" % bookinfo["id"])
             else:
-                try:
-                    self.db.execute("insert into Books (id, title, author, publisher, pubdate, mpic, lpic, price, isbn13, rating, alt, time) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", bookinfo["id"], bookinfo["title"], bookinfo["author"], bookinfo["publisher"], bookinfo["pubdate"], bookinfo["mpic"], bookinfo["lpic"], bookinfo["price"], bookinfo["isbn13"], bookinfo["rating"], bookinfo["alt"],datetime.datetime.now())
+                #try:
+                    self.db.execute("insert into Books (id, title, author, publisher, pubdate, mpic, lpic, price, isbn13, rating, alt, updatetime) values (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", bookinfo["id"], bookinfo["title"], bookinfo["author"], bookinfo["publisher"], bookinfo["pubdate"], bookinfo["mpic"], bookinfo["lpic"], bookinfo["price"], bookinfo["isbn13"], bookinfo["rating"], bookinfo["alt"], datetime.datetime.now())
                     self.redirect("/book/%s" % bookinfo["id"])
-                except:
-                    message = [u"暂时无法添加图书，请稍后再试"]
-                    self.render("addBook.html", me=self.current_user, messages = message)
+                #except:
+                #    message = [u"暂时无法添加图书，请稍后再试"]
+                #    self.render("addBook.html", me=self.current_user, messages = message)
 
 
 class BookHandler(BaseHandler):
