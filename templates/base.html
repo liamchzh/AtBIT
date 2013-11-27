@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% block title %}
         <title>人在北理</title>
         {% end %}
-        <link rel="stylesheet" href="http://lib.sinaapp.com/js/bootstrap/2.3.2/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="http://lib.sinaapp.com/js/bootstrap/2.3.2/css/bootstrap.min.css" type="text/css"/> 
         <style type="text/css"></style>
+        <link href="http://lib.sinaapp.com/js/bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
     </head>
     
     <body>
@@ -47,7 +49,7 @@
                                     <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/me">主页</a></li>
-                                    <li><a href="/inbox">私信{% if me.unread > 0 %}<span class="badge badge-important">{{ me.unread }}</span>{% end %}</a></li>
+                                    <li><a href="/inbox">私信{% if me.unread > 1 %}<span class="badge badge-important">{{ me.unread }}</span>{% end %}</a></li>
                                     <li><a href="/signout">退出</a></li>
                                 </ul>
                             </li>
@@ -64,14 +66,16 @@
         </div>
         {% block content %}{% end %}
         
-        {% block footer %}
-      <div id="footer" class="container">
+{% block footer %}
+      <div id="footer">
+          <div class="container">
           <hr>
-      <div class="offset4">
+          <div class="span8 offset4">
           <p>©2013 Liam All Rights Reserved <a target="_blank" href="http://liamchzh.github.io/about">关于我</a> <a target="_blank" href="https://me.alipay.com/liamchzh" data-toggle="tooltip" title="你的支持是我最好的动力">赞助我</a></p>
+          </div>
       </div>
-    </div>
-        {% end %}
+      </div>
+{% end %}
         
 {% block script %}
     <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.js"></script>  

@@ -8,9 +8,9 @@
 
 {% block content %}
 <div class="container">
+<div class="span9 offset1">
 <hr>
-<div class="">
-<div id="myCarousel" class="carousel slide">  
+  <div id="myCarousel" class="carousel slide">  
     <ol class="carousel-indicators">  
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -36,27 +36,29 @@
     <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>  
   </div>  
 
-</div>
-    
-<div class="row">
-        <div class="span4">
+  <div class="row">
+        <div class="span3">
             <img class="img-polaroid" src="/static/pic/qrcode.jpg">
           <h3>微信公众平台</h3>
           <p>扫描二维码，或者搜「人在北理」，即可添加。发送需要查询的关键字，如「校车」，即可收到相应回复。</p>
           <p><a class="btn" href="#">去看看 &raquo;</a></p>
         </div><!-- /.span4 -->
-        <div class="span4">
+        <div class="span3">
           <img class="img-polaroid" src="/static/pic/book.jpg">
           <h3>图书交易</h3>
           <p>每年都有不少被当作废纸卖掉，你又是否忍心？在这里，你可以找到你需要的图书或教材，让旧书得到再利用的机会。</p>
           <p><a class="btn" href="/book">去看看 &raquo;</a></p>
         </div><!-- /.span4 -->
-        <div class="span4">
+        <div class="span3">
           <img class="img-polaroid" src="/static/pic/hole.jpg">
           <h3>树洞</h3>
           <p>有些话在心头，却说不出口？「人在北理」树洞，就是你最好的倾诉对象。有些话现在不说，就再也没机会。</p>
           <p><a class="btn" href="/hole">去看看 &raquo;</a></p>
     
+        </div>
+  </div>
+
+  </div>
 </div>
 {% end %}
 
@@ -68,5 +70,3 @@
 $('#myCarousel').carousel('next');  
 </script>  
 {% end %}
-
-

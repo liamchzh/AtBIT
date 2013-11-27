@@ -20,6 +20,7 @@ def parse(url):
         return [u"URL错误"], bookinfo
     try:
         data = json.loads(urllib2.urlopen(apiurl+bookid).read())
+        print data
     except:
         return [u"API出错，请稍后再试"], bookinfo
     keys = ["id", "title", "author","publisher", "pubdate", "isbn13", "price", "alt"]
