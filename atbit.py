@@ -42,6 +42,8 @@ class AboutHandler(BaseHandler):
     def get(self):
         self.render("about.html", me=self.current_user)
 
+
+"""
 class HoleHandler(BaseHandler):
     def get(self):
         self.render("hole.html", me=self.current_user, messages=[])
@@ -79,6 +81,37 @@ class HoleHandler(BaseHandler):
 
     def checkIP(self, ipaddr):
         return True
+
+"""
+
+class HoleHandler(BaseHandler):
+    def get(self, page=1):
+        per_page = 20
+        offset = (page - 1) * per_page
+        text_list = self.db.query("select * from Holes order by time limit %s, %s", offset, per_page)
+        self.render("hole.html", me=self.current_user, messages=[], content=[], text_list=text_list, page=page)
+
+    def post(self):
+        content = self.get_argument("content")
+        message = []
+        ipaddr = self.request.remote_ip
+
+
+        if not self.current_user:
+            user_id = 'unknow'
+            name = 'unknow'
+        else:
+            user_id = self.current_user.userid
+            name = self.current_user.name
+
+        if not len(content) < 200 and len(content) > 1:
+            message = [u"字数超出长度限制"]
+            self.render("hole.html", me=self.current_user, message=message, content=content, l=[])
+        else:
+            self.db.execute("insert into Holes (ip, user, name, content, time) values (%s, %s, %s, %s, %s)", ipaddr, user_id, name, content, datetime.datetime.now())
+            self.redirect("/hole")
+
+
 
 class SigninHandler(BaseHandler):
     def get(self):
@@ -236,6 +269,7 @@ class PageHandler(BaseHandler):
         pages = (len(books)-1)/8 + 1 # 每页显示8本书
         self.render("page.html", me=self.current_user, book1=book1, book2=book2, pages=pages, this=int(page))
         
+
 class ViewbookHandler(BaseHandler):
     @tornado.web.asynchronous
     @gen.engine
