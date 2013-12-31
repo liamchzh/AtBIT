@@ -12,13 +12,16 @@
 {% end %}
 
 {% block content %}
+<style type="text/css">
+time {color: #777777}
+</style>
+
 <div class="span10 offset3">
     <h3>「人在北理」树洞 </h3>
     <br>
-
       <form action="" method="POST">
       <div>
-      <textarea name="content" rows="5" class="input-xxlarge" placeholder="向树洞说出你想说的一切吧"></textarea>
+          <textarea name="content" rows="5" class="input-xxlarge" placeholder="向树洞说出你想说的一切吧">{% if content %} {{ content }} {% end %}</textarea>
       </div>
       {% if messages %}
       {% for msg in messages %}
@@ -34,11 +37,11 @@
        <br>
        </form>
        {% for text in text_list%}
-       <div>
-           <p>{{text.content}}<p>
-           <p>{{text.time}}</p>
+       <div class="span6">
+           <hr>
+           <p>{{ text.content }}</p>
+           <time><small>{{ text.time }}</small></time>
        </div>
-
        {% end %}
 </div>
 

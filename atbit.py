@@ -11,6 +11,7 @@ import re
 import os
 import md5
 import douban
+import cgi
 
 from tornado.httpclient import AsyncHTTPClient
 
@@ -86,14 +87,16 @@ class HoleHandler(BaseHandler):
 
 class HoleHandler(BaseHandler):
     def get(self, page=1):
-        per_page = 20
-        offset = (page - 1) * per_page
-        text_list = self.db.query("select * from Holes order by time limit %s, %s", offset, per_page)
+        #per_page = 10
+        #offset = (page - 1) * per_page
+        text_list = self.db.query("select * from Holes order by time desc")
         self.render("hole.html", me=self.current_user, messages=[], content=[], text_list=text_list, page=page)
 
     def post(self):
+        #offset = 0
+        #per_page = 10
         content = self.get_argument("content")
-        message = []
+        messages = []
         ipaddr = self.request.remote_ip
 
 
@@ -104,13 +107,15 @@ class HoleHandler(BaseHandler):
             user_id = self.current_user.userid
             name = self.current_user.name
 
-        if not len(content) < 200 and len(content) > 1:
-            message = [u"字数超出长度限制"]
-            self.render("hole.html", me=self.current_user, message=message, content=content, l=[])
+        if not len(content) < 50 and len(content) > 1:
+            messages = [u"字数超出长度限制"]
+            text_list = self.db.query("select * from Holes order by time desc")
+            self.render("hole.html", me=self.current_user, messages=messages, content=content, text_list=text_list, page=None)
         else:
+            # tornado 模板自动转义 不用自己操心
+            # content = cgi.escape(content)
             self.db.execute("insert into Holes (ip, user, name, content, time) values (%s, %s, %s, %s, %s)", ipaddr, user_id, name, content, datetime.datetime.now())
             self.redirect("/hole")
-
 
 
 class SigninHandler(BaseHandler):
